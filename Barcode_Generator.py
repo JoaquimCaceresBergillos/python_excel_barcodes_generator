@@ -18,6 +18,7 @@ CARPETA_IMAGENES = "barcodes"       # carpeta para guardar las imágenes de los 
 
 COLUMNA_CODIGO = "cod_barras"  # columna con el número original
 
+FILAS_POR_ARCHIVO = 8000  # dividir Excel cada N filas
 
 
 GENERAR_CODE128 = False
@@ -56,20 +57,57 @@ OPTIONS_EAN13_ALTO_IMAGEN = 45 # Alto de la imagen del ean13 en Excel
 
 
 
-FILAS_POR_ARCHIVO = 8000  # dividir Excel cada N filas
-
-
-
 IS_WINDOWS = os.name == "nt" # Determinar si la terminal es Windows
 EMOJI_OK = "✅" if not IS_WINDOWS else "[OK]"
 EMOJI_CLOCK = "⏳" if not IS_WINDOWS else "[TIEMPO]"
-EMOJI_INFO = "ℹ️" if not IS_WINDOWS else "[INFO]"
+EMOJI_INFO = "ℹ️ " if not IS_WINDOWS else "[INFO]"
 
 
 
 # -------------------------------------------------------------------------------------------------
+print(f" ")
+print(f" ")
+print(f" ")
+print(f"******************************************************")
+print(f"*** GENERADOR DE CÓDIGOS DE BARRAS PARA EXCEL v1.0 ***")
+print(f"******************** By JoaquimCB ********************")
+print(f"******************************************************")
+print(f" ")
+print(f" ")
+
+# ---------- CONFIGURACIÓN INTERACTIVA ----------
+"""
+while True:
+    ARCHIVO_ENTRADA = input("Ingrese el nombre del archivo Excel de entrada (con extensión .xlsx): ").strip()
+    if os.path.exists(ARCHIVO_ENTRADA) and ARCHIVO_ENTRADA.endswith(".xlsx"):
+        break
+    else:
+        print("❌ Archivo no encontrado o extensión incorrecta. Intente de nuevo.")
+
+while True:
+    COLUMNA_CODIGO = input("Ingrese el nombre de la columna que contiene los códigos de barras: ").strip()
+    if COLUMNA_CODIGO:
+        break
+    else:
+        print("❌ Debe ingresar un nombre de columna válido.")
+
+while True:
+    try:
+        FILAS_POR_ARCHIVO = int(input("Ingrese la cantidad de filas por archivo: ").strip())
+        if FILAS_POR_ARCHIVO > 0:
+            break
+        else:
+            print("❌ Debe ser un número mayor a 0.")
+    except ValueError:
+        print("❌ Ingrese un número válido.")
+        
+print(f" ")
+print(f" ")
+"""
 
 print(f"{EMOJI_INFO} Ejecutando programa...")
+print(f" ")
+print(f" ")
 
 # Borra el contenido de las carpetas si existen
 if os.path.exists(CARPETA_IMAGENES):
@@ -173,12 +211,18 @@ for bloque in range(num_archivos):
     os.remove(temp_excel)
 
     print(f"{EMOJI_OK} Generado {archivo_salida} con {len(df_bloque)} filas")
+    print(f" ")
+    print(f" ")
 
 fin = time.time()
 tiempo_total = fin - inicio
 minutos = int(tiempo_total // 60)
 segundos = int(tiempo_total % 60)
-
 print("--------------------------------")
+print(f" ")
+print(f" ")
 print(f"{EMOJI_OK} Proceso completado. Archivos generados: {num_archivos}")
 print(f"{EMOJI_CLOCK} Tiempo total de ejecución: {minutos} Min {segundos} Seg")
+print(f" ")
+print(f" ")
+print(f" ")

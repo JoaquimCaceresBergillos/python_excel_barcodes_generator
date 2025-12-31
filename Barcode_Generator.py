@@ -18,7 +18,7 @@ CARPETA_IMAGENES = "barcodes"       # carpeta para guardar las imágenes de los 
 
 COLUMNA_CODIGO = "cod_barras"  # columna con el número original
 
-FILAS_POR_ARCHIVO = 8000  # dividir Excel cada N filas
+FILAS_POR_ARCHIVO = 5000  # dividir Excel cada N filas
 
 
 GENERAR_CODE128 = False
@@ -76,6 +76,13 @@ print(f" ")
 print(f" ")
 
 # ---------- CONFIGURACIÓN INTERACTIVA ----------
+while True:
+    ARCHIVO_ENTRADA = input("Ingrese el nombre del archivo Excel de entrada (con extensión .xlsx): ").strip()
+    if os.path.exists(ARCHIVO_ENTRADA) and ARCHIVO_ENTRADA.endswith(".xlsx"):
+        break
+    else:
+        print("❌ Archivo no encontrado o extensión incorrecta. Intente de nuevo.")
+
 """
 while True:
     ARCHIVO_ENTRADA = input("Ingrese el nombre del archivo Excel de entrada (con extensión .xlsx): ").strip()
@@ -206,7 +213,8 @@ for bloque in range(num_archivos):
 
      # ---------- Guardar Excel final ----------
     print(f"{EMOJI_INFO} Generando Excel del bloque {bloque+1} ...")
-    archivo_salida = f"articulos_con_barcodes_{bloque+1}.xlsx"
+    NOMBRE_BASE_ENTRADA = os.path.splitext(os.path.basename(ARCHIVO_ENTRADA))[0]
+    archivo_salida = f"{NOMBRE_BASE_ENTRADA}_barcodes_{bloque+1}.xlsx"
     wb.save(archivo_salida)
     os.remove(temp_excel)
 
